@@ -3,11 +3,7 @@ import { getAllproducts } from "@/lib/shopify";
 import { getProduct } from "@/lib/shopify";
 
 export default function ProductPage({ product }) {
-  return (
-    <div>
-      <ProductPageContent product={product} />
-    </div>
-  );
+  return <ProductPageContent product={product} />;
 }
 
 export async function getStaticPaths() {
