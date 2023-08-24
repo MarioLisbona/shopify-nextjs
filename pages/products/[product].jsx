@@ -3,7 +3,11 @@ import { getAllproducts } from "@/lib/shopify";
 import { getProduct } from "@/lib/shopify";
 
 export default function ProductPage({ product }) {
-  return <ProductPageContent product={product} />;
+  return (
+    <div className="min-h-screen py-12 sm:pt-20">
+      <ProductPageContent product={product} />
+    </div>
+  );
 }
 
 export async function getStaticPaths() {
