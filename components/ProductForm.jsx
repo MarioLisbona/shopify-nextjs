@@ -51,7 +51,7 @@ export default function ProductForm({ product }) {
           setOptions={setOptions}
         />
       ))}
-      <button className="bg-black rounded-lg text-white px-2 py-3 mt-5 hover:bg-gray-800">
+      <button className="bg-black rounded-lg text-white px-2 py-3 mt-8 hover:bg-gray-800">
         Add To Cart
       </button>
     </div>
