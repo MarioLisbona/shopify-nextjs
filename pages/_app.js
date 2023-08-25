@@ -1,3 +1,6 @@
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import Layout from "@/components/Layout";
 import ShopProvider from "@/context/shopContext";
 import "@/styles/globals.css";
