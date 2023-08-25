@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import ProductForm from "./ProductForm";
 export default function ProductPageContent({ product }) {
   return (
