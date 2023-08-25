@@ -98,12 +98,11 @@ export default function MiniCart({ cart }) {
                                         <Link
                                           href={`/products/${product.handle}`}
                                           passHref
+                                          legacyBehavior
                                         >
-                                          <div
-                                            onClick={() => setCartOpen(false)}
-                                          >
+                                          <a onClick={() => setCartOpen(false)}>
                                             {product.title}
-                                          </div>
+                                          </a>
                                         </Link>
                                       </h3>
                                       <p className="ml-4">
@@ -138,6 +137,31 @@ export default function MiniCart({ cart }) {
                         ) : (
                           <div>
                             <p>Nothing in your cart!</p>
+                            <div className="grid grid-cols-2 gap-2">
+                              <div className="flex items-center justify-center">
+                                Example items
+                              </div>
+                              <div className="flex items-center justify-center">
+                                Example items
+                              </div>
+                              <div className="flex items-center justify-center">
+                                Example items
+                              </div>
+                              <div className="flex items-center justify-center">
+                                Example items
+                              </div>
+                              <div className="flex items-center justify-center">
+                                Example items
+                              </div>
+                            </div>
+                            <button
+                              type="button"
+                              className="font-medium hover:text-gray-800"
+                              onClick={() => setCartOpen(false)}
+                            >
+                              Continue Shopping
+                              <span aria-hidden="true"> &rarr;</span>
+                            </button>
                           </div>
                         )}
                       </div>
