@@ -37,7 +37,7 @@ export default function ProductForm({ product }) {
       id: variant.node.id,
       title: product.title,
       handle: product.handle,
-      image: variant.node.image?.originalSrc,
+      image: variant.node.image?.url,
       options: allOptions,
       variantTitle: variant.node.title,
       variantPrice: variant.node.priceV2.amount,
