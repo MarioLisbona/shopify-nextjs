@@ -1,9 +1,29 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { formatter } from "@/utils/helpers";
 import ProductOptions from "./ProductOptions";
 import { CartContext } from "@/context/shopContext";
+import axios from "axios";
+import useSWR from "swr";
+
+// setup inventory fetcher
+const fetchInventory = (url, id) =>
+  axios
+    .get(url, {
+      params: {
+        id: id,
+      },
+    })
+    .then((res) => res.data);
 
 export default function ProductForm({ product }) {
+  const { data: productInventory } = useSWR(
+    `/api/available?id=${product.handle}`,
+    (url, id) => fetchInventory(url, id),
+    { errorRetryCount: 3 }
+  );
+
+  const [available, setAvailable] = useState(true);
+
   const { addToCart } = useContext(CartContext);
 
   const allVariantOptions = product.variants.edges?.map((variant) => {
@@ -50,6 +70,20 @@ export default function ProductForm({ product }) {
     });
   }
 
+  useEffect(() => {
+    if (productInventory) {
+      const checkAvailable = productInventory?.variants.edges.filter(
+        (item) => item.node.id === selectedVariant.id
+      );
+
+      if (checkAvailable[0].node.availableForSale) {
+        setAvailable(true);
+      } else {
+        setAvailable(false);
+      }
+    }
+  }, [productInventory, selectedVariant]);
+
   return (
     <div className="rounded-2xl p-4 shadow-lg flex flex-col w-full md:w-1/3">
       <h2 className="text-2xl font-bold">{product.title}</h2>
@@ -65,12 +99,18 @@ export default function ProductForm({ product }) {
           setOptions={setOptions}
         />
       ))}
-      <button
-        onClick={() => addToCart(selectedVariant)}
-        className="mt-3 bg-black rounded-lg text-white px-2 py-3 mt-8 hover:bg-gray-800"
-      >
-        Add To Cart
-      </button>
+      {available ? (
+        <button
+          onClick={() => addToCart(selectedVariant)}
+          className="mt-8 bg-black rounded-lg text-white px-2 py-3 hover:bg-gray-800"
+        >
+          Add To Cart
+        </button>
+      ) : (
+        <button className="mt-8 bg-gray-400 cursor-not-allowed rounded-lg text-white px-2 py-3">
+          Sold Out!
+        </button>
+      )}
     </div>
   );
 }

@@ -7,7 +7,6 @@ import { ClipboardCheckIcon } from "@heroicons/react/outline";
 import RecommendedList from "./RecommendedList";
 
 export default function ProductPageContent({ product }) {
-  console.log(product);
   const images = [];
 
   product.images.edges.map((image, i) => {
